@@ -9,10 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.decodeFromString
+import java.io.File
 
 class ServerViewModel : ViewModel() {
     private val _messages = MutableStateFlow<List<Message>>(emptyList())
@@ -29,7 +27,6 @@ class ServerViewModel : ViewModel() {
 
     private var server: WebSocketServer? = null
 
-    // Файл для хранения истории сообщений (JSON Lines)
     private val historyFile = File("messages.jsonl")
     private val json = Json { prettyPrint = false } // компактный JSON
 

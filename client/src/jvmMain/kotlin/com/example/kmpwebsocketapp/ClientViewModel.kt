@@ -29,13 +29,11 @@ class ClientViewModel : ViewModel() {
 
     fun connect(host: String, port: Int) {
         viewModelScope.launch {
-            // Отключаем предыдущего клиента, если он есть
             client?.disconnect()
 
             _connectionStatus.value = ConnectionStatus.Connecting
             addToLog("Connecting to $host:$port...")
 
-            // Создаём нового клиента с переданным scope
             val newClient = WebSocketClient(
                 host = host,
                 port = port,
