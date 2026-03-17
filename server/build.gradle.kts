@@ -2,7 +2,6 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.kotlinJvm)
-    // Плагин ktor удалён
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
