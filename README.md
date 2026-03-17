@@ -1,48 +1,33 @@
-This is a Kotlin Multiplatform project targeting Desktop (JVM), Server.
+# KMP WebSocket App
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-    - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-    - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-      For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-      the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-      Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-      folder is the appropriate location.
+Мультиплатформенное клиент-серверное приложение для обмена сообщениями в реальном времени через WebSocket. Реализовано на Kotlin Multiplatform с использованием Compose Desktop для графического интерфейса и Ktor для сетевого взаимодействия.
 
-* [/server](./server/src/main/kotlin) is for the Ktor server application.
+## Архитектура
 
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
+Проект разделён на три модуля:
 
-### Build and Run Desktop (JVM) Application
+- **`shared`** – общая логика и модель данных (`Message`), сериализация (kotlinx.serialization).
+- **`server`** – серверное приложение с графическим интерфейсом (Compose Desktop). Принимает WebSocket-соединения, отображает список подключённых клиентов и полученных сообщений.
+- **`client`** – клиентское приложение с графическим интерфейсом (Compose Desktop). Подключается к серверу по IP и порту, отправляет сообщения, отображает статус соединения и лог событий.
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
+## Используемые технологии
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :composeApp:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :composeApp:run
-  ```
+- **Kotlin Multiplatform** – общий код для JVM.
+- **Ktor** – серверная и клиентская части WebSocket.
+- **kotlinx.coroutines** – асинхронность.
+- **kotlinx.serialization** – сериализация/десериализация JSON.
+- **Compose Multiplatform (Desktop)** – графический интерфейс.
+- **Gradle Kotlin DSL** – система сборки.
 
-### Build and Run Server
+## Требования к окружению
 
-To build and run the development version of the server, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
+- **Java 11** или выше (рекомендуется JDK 17+).
+- **Gradle** (используется wrapper, отдельная установка не требуется).
 
-- on macOS/Linux
-  ```shell
-  ./gradlew :server:run
-  ```
-- on Windows
-  ```shell
-  .\gradlew.bat :server:run
-  ```
+## Сборка и запуск
 
----
+### 1. Клонирование репозитория
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+```bash
+git clone <url-репозитория>
+cd KmpWebSocketApp
