@@ -24,13 +24,19 @@ class ClientViewModel : ViewModel() {
         object Connected : ConnectionStatus()
         object Connecting : ConnectionStatus()
         object Disconnected : ConnectionStatus()
+        data class Reconnecting(val attempt: Int, val maxAttempts: Int) : ConnectionStatus()
     }
 
     fun connect(host: String, port: Int) {
         viewModelScope.launch {
+            // Отключаем предыдущего клиента, если он есть
+            client?.disconnect()
+
             _connectionStatus.value = ConnectionStatus.Connecting
             addToLog("Connecting to $host:$port...")
-            client = WebSocketClient(
+
+            // Создаём нового клиента с переданным scope
+            val newClient = WebSocketClient(
                 host = host,
                 port = port,
                 onConnected = {
@@ -43,9 +49,15 @@ class ClientViewModel : ViewModel() {
                 },
                 onMessageReceived = { response ->
                     addToLog("Received: $response")
-                }
+                },
+                onReconnecting = { attempt, max ->
+                    _connectionStatus.value = ConnectionStatus.Reconnecting(attempt, max)
+                    addToLog("Reconnecting attempt $attempt/$max...")
+                },
+                scope = viewModelScope // передаём scope
             )
-            client?.connect()
+            client = newClient
+            newClient.connect()
         }
     }
 

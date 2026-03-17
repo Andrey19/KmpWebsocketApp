@@ -70,9 +70,11 @@ fun ClientApp(viewModel: ClientViewModel = viewModel { ClientViewModel() }) {
                     )
                 ) {
                     Text(
-                        when (connectionStatus) {
+                        when (val status = connectionStatus) {
                             ClientViewModel.ConnectionStatus.Connected -> "Disconnect"
                             ClientViewModel.ConnectionStatus.Connecting -> "Connecting..."
+                            is ClientViewModel.ConnectionStatus.Reconnecting ->
+                                "Reconnecting (${status.attempt}/${status.maxAttempts})..."
                             else -> "Connect"
                         }
                     )
