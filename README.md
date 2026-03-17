@@ -58,5 +58,6 @@
 
  Сервер
 ./gradlew :server:run
+
  Клиент (в отдельном окне)
 ./gradlew :client:run
