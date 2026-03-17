@@ -61,6 +61,18 @@ fun ServerApp(viewModel: ServerViewModel = viewModel<ServerViewModel> { ServerVi
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Text("Connected clients: ${clients.size}")
+
+                // Кнопка очистки истории
+                Spacer(modifier = Modifier.width(16.dp))
+                Button(
+                    onClick = { viewModel.clearHistory() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.secondary
+                    ),
+                    enabled = messages.isNotEmpty()
+                ) {
+                    Text("Clear History")
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
