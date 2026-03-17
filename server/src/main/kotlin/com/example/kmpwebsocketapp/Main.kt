@@ -92,7 +92,10 @@ fun ServerApp(viewModel: ServerViewModel = viewModel<ServerViewModel> { ServerVi
                         ) {
                             Column(modifier = Modifier.padding(8.dp)) {
                                 Text("Client: ${msg.clientId.take(8)}", style = MaterialTheme.typography.labelSmall)
-                                Text("Time: ${java.time.Instant.ofEpochMilli(msg.timestamp)}", style = MaterialTheme.typography.labelSmall)
+                                val formattedTime = java.time.Instant.ofEpochMilli(msg.timestamp)
+                                    .atZone(java.time.ZoneId.systemDefault())
+                                    .format(java.time.format.DateTimeFormatter.ofPattern(" HH:mm:ss dd.MM.yyyy "))
+                                Text("Time: $formattedTime", style = MaterialTheme.typography.labelSmall)
                                 Text(msg.message, style = MaterialTheme.typography.bodyMedium)
                             }
                         }
