@@ -11,14 +11,13 @@ dependencies {
 
     implementation(libs.logback)
 
-    // Ktor (сервер) — просто зависимости, без плагина
+    // Ktor (сервер)
     implementation(libs.ktor.serverCore)
     implementation(libs.ktor.serverNetty)
     implementation(libs.ktor.server.websockets)
     implementation(libs.ktor.server.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.kotlinx.serialization.json)
-
 
     // Compose
     implementation(compose.desktop.currentOs)
@@ -27,6 +26,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.compose.ui)
     implementation(libs.compose.uiToolingPreview)
+
+    // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodelCompose)
     implementation(libs.androidx.lifecycle.runtimeCompose)
     implementation(libs.kotlinx.coroutinesSwing)
