@@ -34,23 +34,6 @@
 
 ## Сборка и запуск
 
-Требования
-Java 11 или выше.
-
-Gradle (используется встроенный wrapper).
-
-Клонирование
-bash
-git clone <url-репозитория>
-cd KmpWebSocketApp
-Запуск через терминал
-bash
-# Сервер
-./gradlew :server:run
-
-# Клиент (в отдельном окне)
-./gradlew :client:run
-Для Windows используйте gradlew.bat.
 
 Запуск в IntelliJ IDEA
 Откройте проект, дождитесь синхронизации Gradle.
